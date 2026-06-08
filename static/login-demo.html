@@ -11,82 +11,116 @@
     <main class="login-stage">
       <section class="product-panel" aria-label="产品概览">
         <header class="brand-head">
-          <img src="/logo-whale-envelope.svg" alt="邮箱接码后台 Logo" />
-          <div>
-            <strong>邮箱接码后台</strong>
-            <small>Mail Code Admin</small>
+          <div class="brand-main">
+            <img src="/logo-whale-envelope.svg" alt="邮箱接码后台 Logo" />
+            <div>
+              <strong>邮箱接码后台</strong>
+              <small>Mail Code Admin</small>
+            </div>
           </div>
+          <span class="status-pill">本地运行中</span>
         </header>
 
         <section class="hero-copy">
-          <p class="eyebrow">PRIVATE MAIL OPERATIONS</p>
-          <h1>集中处理验证码邮件、员工权限和风险规则</h1>
+          <p class="eyebrow">MAIL OPERATIONS CENTER</p>
+          <h1>把验证码邮件、员工权限和风险规则放在一个后台里处理</h1>
           <p>
-            为多邮箱接码场景设计的本地管理工作台，覆盖 IMAP 同步、验证码识别、
-            SMTP 发信、员工分组、黑名单、审计和 API 调用。
+            面向多邮箱接码场景的本地工作台：集中同步 IMAP 邮件，自动识别验证码，
+            按员工分组控制可读范围、发信、删除和审计权限。
           </p>
         </section>
 
-        <section class="operation-board" aria-label="运行概况">
+        <section class="operation-board" aria-label="运行指标">
           <article>
             <span>今日同步</span>
             <strong>326</strong>
-            <small>封邮件，平均延迟 0.2 秒</small>
+            <small>平均延迟 0.2 秒</small>
           </article>
           <article>
-            <span>验证码识别</span>
+            <span>识别成功率</span>
             <strong>98.7%</strong>
-            <small>支持 4-8 位数字与混合码</small>
+            <small>数字码与混合码</small>
           </article>
           <article>
-            <span>风险拦截</span>
+            <span>风险命中</span>
             <strong>12</strong>
-            <small>条黑名单规则命中</small>
+            <small>黑名单规则</small>
           </article>
         </section>
 
-        <section class="capability-row" aria-label="核心能力">
-          <span>Gmail</span>
-          <span>Outlook</span>
-          <span>163</span>
-          <span>QQ</span>
-          <span>SMTP</span>
-          <span>Docker</span>
-        </section>
-
-        <section class="activity-panel" aria-label="最近动态">
-          <div class="section-title">
-            <strong>最近同步动态</strong>
-            <small>本地演示数据</small>
+        <section class="dashboard-preview" aria-label="后台预览">
+          <div class="preview-head">
+            <span></span>
+            <span></span>
+            <span></span>
+            <strong>实时收件箱</strong>
           </div>
-          <div class="activity-list">
-            <p><span></span>注册接码邮箱完成 IMAP 拉取，新增验证码 18 条</p>
-            <p><span></span>员工组“客服二组”权限调整为只读 7 天内邮件</p>
-            <p><span></span>黑名单命中 suspicious-domain.example，已标记风险</p>
+          <div class="preview-grid">
+            <div class="preview-sidebar">
+              <b>Inbox</b>
+              <small>验证码 36</small>
+              <small>黑名单 12</small>
+              <small>员工组 5</small>
+            </div>
+            <div class="preview-list">
+              <article>
+                <div>
+                  <strong>GitHub 登录验证码</strong>
+                  <small>security@github.com</small>
+                </div>
+                <mark>482619</mark>
+              </article>
+              <article>
+                <div>
+                  <strong>Outlook 安全代码</strong>
+                  <small>account-security@microsoft.com</small>
+                </div>
+                <mark>735104</mark>
+              </article>
+              <article>
+                <div>
+                  <strong>员工组权限变更</strong>
+                  <small>客服二组：仅最近 7 天</small>
+                </div>
+                <mark class="muted-mark">ACL</mark>
+              </article>
+            </div>
           </div>
         </section>
       </section>
 
       <section class="login-panel" aria-label="登录后台">
+        <div class="login-status">
+          <span>Demo 环境</span>
+          <strong>127.0.0.1:8089</strong>
+        </div>
+
         <div class="login-title">
           <span>SECURE SIGN IN</span>
           <h2>登录工作台</h2>
-          <p>选择登录身份，完成本地验证码校验后进入后台预览。</p>
+          <p>选择身份后会自动带入演示账号，输入本地校验码即可进入后台预览。</p>
         </div>
 
         <div class="role-tabs" role="tablist" aria-label="登录身份">
-          <button class="active" type="button" data-role="admin">管理员</button>
-          <button type="button" data-role="staff">员工</button>
+          <button class="active" type="button" data-role="admin">
+            <strong>管理员</strong>
+            <small>完整后台权限</small>
+          </button>
+          <button type="button" data-role="staff">
+            <strong>员工</strong>
+            <small>受限邮箱范围</small>
+          </button>
         </div>
+        <p id="roleNote" class="role-note"></p>
 
         <form id="loginPreviewForm" class="login-form">
           <label>
-            账号
+            <span class="field-label">账号</span>
             <input id="usernameInput" name="username" autocomplete="username" value="admin" required />
           </label>
 
           <label>
-            密码
+            <span class="field-label">密码</span>
             <div class="password-field">
               <input id="passwordInput" name="password" type="password" autocomplete="current-password" value="admin123" required />
               <button id="togglePasswordBtn" type="button" aria-label="显示或隐藏密码">显示</button>
@@ -94,15 +128,16 @@
           </label>
 
           <label>
-            本地校验码
+            <span class="field-label">本地校验码</span>
             <div class="captcha-field">
               <input id="captchaInput" inputmode="numeric" autocomplete="one-time-code" placeholder="输入右侧数字" required />
               <button id="captchaBtn" class="captcha-code" type="button" aria-label="刷新校验码">4826</button>
             </div>
+            <small class="field-help">点击数字可刷新；这里只用于本地演示。</small>
           </label>
 
           <label>
-            会话范围
+            <span class="field-label">会话范围</span>
             <select id="scopeSelect" name="scope">
               <option value="all">全部已授权邮箱</option>
               <option value="recent">仅最近 7 天邮件</option>
@@ -115,7 +150,7 @@
               <input type="checkbox" checked />
               <span>记住本机登录状态</span>
             </label>
-            <a href="#security">查看安全策略</a>
+            <a href="#security">安全策略</a>
           </div>
 
           <button class="login-button" type="submit">进入管理后台</button>
@@ -128,20 +163,10 @@
             <small>连续 5 次失败后锁定 15 分钟</small>
           </article>
           <article>
-            <strong>员工隔离</strong>
+            <strong>权限隔离</strong>
             <small>按分组限制邮箱、时间段、删除和发信能力</small>
           </article>
-          <article>
-            <strong>审计记录</strong>
-            <small>复制验证码、发送邮件、删除邮件都会留痕</small>
-          </article>
         </section>
-
-        <footer class="login-footer">
-          <span>127.0.0.1:8089</span>
-          <span>SQLite 本地数据</span>
-          <span>Docker Ready</span>
-        </footer>
       </section>
     </main>
 
