@@ -11,5 +11,8 @@ togglePasswordBtn.addEventListener("click", () => {
 
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  loginMessage.textContent = "登录预览已通过，真实后台会在此进入管理首页。";
+  loginMessage.textContent = "登录成功，正在进入管理后台...";
+  window.setTimeout(() => {
+    window.location.href = "/demo.html";
+  }, 350);
 });
