@@ -243,6 +243,155 @@ button {
   gap: 16px;
 }
 
+.overview-page {
+  display: grid;
+  gap: 16px;
+}
+
+.showcase-hero,
+.workflow-panel,
+.showcase-columns article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
+}
+
+.showcase-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: center;
+  padding: 26px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(21, 28, 44, 0.96), rgba(31, 111, 235, 0.82)),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.24), transparent 32%);
+}
+
+.showcase-hero h2 {
+  margin-bottom: 8px;
+  font-size: 38px;
+}
+
+.showcase-hero p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.7;
+}
+
+.showcase-badges {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.showcase-badges span {
+  min-height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  font-weight: 900;
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.module-grid article {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
+}
+
+.module-grid span {
+  width: max-content;
+  border-radius: 8px;
+  padding: 4px 9px;
+  color: var(--primary);
+  background: #eef5ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.module-grid h3,
+.showcase-columns h3 {
+  margin-bottom: 0;
+}
+
+.module-grid p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.workflow-panel {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.workflow-steps article {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: var(--panel-soft);
+}
+
+.workflow-steps strong {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--primary);
+}
+
+.workflow-steps span {
+  font-weight: 900;
+}
+
+.workflow-steps small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.showcase-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.showcase-columns article {
+  padding: 18px;
+}
+
+.showcase-columns ul {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -889,7 +1038,11 @@ dd {
   }
 
   .actions,
-  .stats {
+  .stats,
+  .showcase-hero,
+  .module-grid,
+  .workflow-steps,
+  .showcase-columns {
     grid-template-columns: 1fr;
   }
 }

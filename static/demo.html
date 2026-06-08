@@ -18,8 +18,9 @@
         </div>
 
         <nav class="nav">
+          <button class="active" data-page="overview"><span>项目展示</span></button>
           <button data-page="login"><span>登录页</span></button>
-          <button class="active" data-page="inbox"><span>收件箱</span><b>128</b></button>
+          <button data-page="inbox"><span>收件箱</span><b>128</b></button>
           <button data-page="codes"><span>验证码</span><b>36</b></button>
           <button data-page="send"><span>发送邮件</span></button>
           <button data-page="accounts"><span>邮箱账号</span><b>8</b></button>
@@ -40,8 +41,8 @@
         <header class="top">
           <div>
             <p class="eyebrow">MAIL WORKSPACE</p>
-            <h1 id="pageTitle">收件箱</h1>
-            <p>聚合多个邮箱的验证码、通知和业务邮件。</p>
+            <h1 id="pageTitle">项目展示</h1>
+            <p>完整预览邮箱接码后台的产品结构、核心能力和迭代方向。</p>
           </div>
           <div class="actions">
             <select>
@@ -54,7 +55,93 @@
           </div>
         </header>
 
-        <section id="inboxPage" class="page inbox-page">
+        <section id="overviewPage" class="page overview-page">
+          <section class="showcase-hero">
+            <div>
+              <p class="eyebrow">PROJECT SHOWCASE</p>
+              <h2>本地邮箱接码后台</h2>
+              <p>面向多邮箱验证码收取、员工协作处理和安全权限管控的本地管理系统。</p>
+            </div>
+            <div class="showcase-badges">
+              <span>IMAP 同步</span>
+              <span>验证码识别</span>
+              <span>SMTP 发信</span>
+              <span>员工权限</span>
+              <span>黑名单</span>
+              <span>Docker 部署</span>
+            </div>
+          </section>
+
+          <section class="module-grid">
+            <article>
+              <span>01</span>
+              <h3>登录与品牌</h3>
+              <p>支持管理员登录、失败锁定、Logo、标题、Slogan、网站标志和主题色自定义。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>邮箱账号</h3>
+              <p>集中配置 Gmail、Outlook、163、QQ 等邮箱的 IMAP/SMTP 参数和授权码。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>邮件与验证码</h3>
+              <p>聚合多个邮箱收件箱，自动提取 4-8 位验证码，支持搜索、复制和处理状态。</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>员工与分组权限</h3>
+              <p>按分组配置可读邮箱、可读时间段、发信、删除和账号管理权限。</p>
+            </article>
+            <article>
+              <span>05</span>
+              <h3>黑名单规则</h3>
+              <p>按发件人、域名、主题关键词、正文关键词拉黑或标记风险邮件。</p>
+            </article>
+            <article>
+              <span>06</span>
+              <h3>外部验证码 API</h3>
+              <p>通过 Token 读取最新验证码，可按邮箱、关键词、未处理状态过滤并自动标记。</p>
+            </article>
+          </section>
+
+          <section class="workflow-panel">
+            <div class="panel-title">
+              <h2>典型工作流</h2>
+              <p>从接入邮箱到员工处理验证码的完整链路。</p>
+            </div>
+            <div class="workflow-steps">
+              <article><strong>1</strong><span>添加邮箱账号</span><small>填写 IMAP/SMTP 和授权码</small></article>
+              <article><strong>2</strong><span>同步收件箱</span><small>手动或定时同步邮件</small></article>
+              <article><strong>3</strong><span>识别验证码</span><small>自动从主题和正文提取</small></article>
+              <article><strong>4</strong><span>分配员工权限</span><small>按分组控制可见范围</small></article>
+              <article><strong>5</strong><span>处理和审计</span><small>复制、发送、删除、记录日志</small></article>
+            </div>
+          </section>
+
+          <section class="showcase-columns">
+            <article>
+              <h3>已具备</h3>
+              <ul>
+                <li>本地 Python 后端和静态后台界面</li>
+                <li>SQLite 数据库存储账号、邮件和日志</li>
+                <li>IMAP 同步、SMTP 发信、验证码提取</li>
+                <li>批量导入、Docker 部署、验证码 API</li>
+              </ul>
+            </article>
+            <article>
+              <h3>下一阶段</h3>
+              <ul>
+                <li>员工、分组、权限模型落数据库</li>
+                <li>黑名单规则真正接入同步和查询流程</li>
+                <li>品牌设置持久化到系统配置表</li>
+                <li>公网部署前补 HTTPS、加密和审计</li>
+              </ul>
+            </article>
+          </section>
+        </section>
+
+        <section id="inboxPage" class="page hidden inbox-page">
           <section class="stats">
             <article>
               <span>验证码邮件</span>

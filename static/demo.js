@@ -1,4 +1,9 @@
 const pages = {
+  overview: {
+    title: "项目展示",
+    desc: "完整预览邮箱接码后台的产品结构、核心能力和迭代方向。",
+    show: "overviewPage",
+  },
   login: {
     title: "登录页",
     desc: "预览管理员登录首屏、品牌展示和安全提示。",
