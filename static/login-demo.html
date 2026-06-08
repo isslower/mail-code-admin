@@ -9,7 +9,7 @@
   </head>
   <body>
     <main class="login-stage">
-      <section class="brand-panel">
+      <section class="product-panel" aria-label="产品概览">
         <header class="brand-head">
           <img src="/logo-whale-envelope.svg" alt="邮箱接码后台 Logo" />
           <div>
@@ -18,50 +18,96 @@
           </div>
         </header>
 
-        <div class="brand-copy">
-          <p class="eyebrow">PRIVATE MAIL WORKSPACE</p>
-          <h1>统一管理验证码邮件</h1>
-          <p>多邮箱集中同步、验证码自动识别、员工分组权限、风险邮件黑名单和操作审计。</p>
-        </div>
+        <section class="hero-copy">
+          <p class="eyebrow">PRIVATE MAIL OPERATIONS</p>
+          <h1>集中处理验证码邮件、员工权限和风险规则</h1>
+          <p>
+            为多邮箱接码场景设计的本地管理工作台，覆盖 IMAP 同步、验证码识别、
+            SMTP 发信、员工分组、黑名单、审计和 API 调用。
+          </p>
+        </section>
 
-        <div class="signal-grid" aria-label="系统能力">
+        <section class="operation-board" aria-label="运行概况">
           <article>
-            <span>IMAP</span>
-            <strong>多邮箱同步</strong>
-            <small>Gmail / Outlook / 163 / QQ</small>
+            <span>今日同步</span>
+            <strong>326</strong>
+            <small>封邮件，平均延迟 0.2 秒</small>
           </article>
           <article>
-            <span>CODE</span>
-            <strong>自动识别</strong>
-            <small>4-8 位验证码提取</small>
+            <span>验证码识别</span>
+            <strong>98.7%</strong>
+            <small>支持 4-8 位数字与混合码</small>
           </article>
           <article>
-            <span>ACL</span>
-            <strong>员工权限</strong>
-            <small>分组、时间段、删除控制</small>
+            <span>风险拦截</span>
+            <strong>12</strong>
+            <small>条黑名单规则命中</small>
           </article>
-        </div>
+        </section>
+
+        <section class="capability-row" aria-label="核心能力">
+          <span>Gmail</span>
+          <span>Outlook</span>
+          <span>163</span>
+          <span>QQ</span>
+          <span>SMTP</span>
+          <span>Docker</span>
+        </section>
+
+        <section class="activity-panel" aria-label="最近动态">
+          <div class="section-title">
+            <strong>最近同步动态</strong>
+            <small>本地演示数据</small>
+          </div>
+          <div class="activity-list">
+            <p><span></span>注册接码邮箱完成 IMAP 拉取，新增验证码 18 条</p>
+            <p><span></span>员工组“客服二组”权限调整为只读 7 天内邮件</p>
+            <p><span></span>黑名单命中 suspicious-domain.example，已标记风险</p>
+          </div>
+        </section>
       </section>
 
-      <section class="login-panel" aria-label="管理员登录">
+      <section class="login-panel" aria-label="登录后台">
         <div class="login-title">
-          <span>ADMIN LOGIN</span>
-          <h2>管理员登录</h2>
-          <p>请输入管理员账号和密码进入后台。</p>
+          <span>SECURE SIGN IN</span>
+          <h2>登录工作台</h2>
+          <p>选择登录身份，完成本地验证码校验后进入后台预览。</p>
+        </div>
+
+        <div class="role-tabs" role="tablist" aria-label="登录身份">
+          <button class="active" type="button" data-role="admin">管理员</button>
+          <button type="button" data-role="staff">员工</button>
         </div>
 
         <form id="loginPreviewForm" class="login-form">
           <label>
-            管理员账号
-            <input name="username" autocomplete="username" value="admin" required />
+            账号
+            <input id="usernameInput" name="username" autocomplete="username" value="admin" required />
           </label>
 
           <label>
-            管理员密码
+            密码
             <div class="password-field">
               <input id="passwordInput" name="password" type="password" autocomplete="current-password" value="admin123" required />
               <button id="togglePasswordBtn" type="button" aria-label="显示或隐藏密码">显示</button>
             </div>
+          </label>
+
+          <label>
+            本地校验码
+            <div class="captcha-field">
+              <input id="captchaInput" inputmode="numeric" autocomplete="one-time-code" placeholder="输入右侧数字" required />
+              <button id="captchaBtn" class="captcha-code" type="button" aria-label="刷新校验码">4826</button>
+            </div>
+          </label>
+
+          <label>
+            会话范围
+            <select id="scopeSelect" name="scope">
+              <option value="all">全部已授权邮箱</option>
+              <option value="recent">仅最近 7 天邮件</option>
+              <option value="send">仅发信与验证码读取</option>
+            </select>
           </label>
 
           <div class="login-row">
@@ -69,20 +115,30 @@
               <input type="checkbox" checked />
               <span>记住本机登录状态</span>
             </label>
-            <a href="#security">安全说明</a>
+            <a href="#security">查看安全策略</a>
           </div>
 
-          <button class="login-button" type="submit">登录后台</button>
+          <button class="login-button" type="submit">进入管理后台</button>
           <p id="loginMessage" class="login-message" role="status"></p>
         </form>
 
-        <div id="security" class="security-panel">
-          <strong>默认账号仅用于本地预览</strong>
-          <span>正式使用前请修改管理员账号密码，启用登录失败锁定，并限制在内网或 VPN 访问。</span>
-        </div>
+        <section class="quick-security" id="security" aria-label="安全策略">
+          <article>
+            <strong>失败锁定</strong>
+            <small>连续 5 次失败后锁定 15 分钟</small>
+          </article>
+          <article>
+            <strong>员工隔离</strong>
+            <small>按分组限制邮箱、时间段、删除和发信能力</small>
+          </article>
+          <article>
+            <strong>审计记录</strong>
+            <small>复制验证码、发送邮件、删除邮件都会留痕</small>
+          </article>
+        </section>
 
         <footer class="login-footer">
-          <span>127.0.0.1:8088</span>
+          <span>127.0.0.1:8089</span>
           <span>SQLite 本地数据</span>
           <span>Docker Ready</span>
         </footer>
