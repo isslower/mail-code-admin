@@ -388,6 +388,84 @@ mark {
   max-width: 900px;
 }
 
+.login-preview-page {
+  display: grid;
+  min-height: calc(100vh - 125px);
+}
+
+.login-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 440px);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.login-hero,
+.login-preview-form {
+  display: grid;
+  align-content: center;
+  gap: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 32px;
+  background: var(--panel);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
+}
+
+.login-hero {
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(21, 28, 44, 0.96), rgba(31, 111, 235, 0.84)),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.24), transparent 32%);
+}
+
+.login-hero .preview-top small,
+.login-hero p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.login-hero h2 {
+  margin-bottom: 8px;
+  font-size: 38px;
+}
+
+.login-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.login-feature-grid span,
+.login-tip {
+  display: grid;
+  gap: 5px;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.login-feature-grid span {
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.login-feature-grid b {
+  color: #fff;
+}
+
+.login-preview-form {
+  align-content: start;
+}
+
+.login-tip {
+  color: var(--muted);
+  background: var(--panel-soft);
+  line-height: 1.55;
+}
+
+.login-tip strong {
+  color: var(--ink);
+}
+
 .compose,
 .account-form {
   display: grid;
@@ -789,6 +867,7 @@ dd {
   .demo-shell,
   .workbench,
   .account-grid,
+  .login-preview,
   .permission-layout,
   .blacklist-layout,
   .branding-layout,
@@ -824,6 +903,7 @@ dd {
   .nav,
   .two,
   .code-box,
+  .login-feature-grid,
   .checkbox-grid,
   .permission-summary,
   .permission-matrix > div,

@@ -1,4 +1,9 @@
 const pages = {
+  login: {
+    title: "登录页",
+    desc: "预览管理员登录首屏、品牌展示和安全提示。",
+    show: "loginPage",
+  },
   inbox: {
     title: "收件箱",
     desc: "聚合多个邮箱的验证码、通知和业务邮件。",
