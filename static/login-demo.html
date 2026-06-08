@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>邮箱接码后台 - 登录预览</title>
+    <link rel="icon" href="/logo-whale-envelope.svg" />
+    <link rel="stylesheet" href="/login-demo.css" />
+  </head>
+  <body>
+    <main class="login-stage">
+      <section class="brand-panel">
+        <header class="brand-head">
+          <img src="/logo-whale-envelope.svg" alt="邮箱接码后台 Logo" />
+          <div>
+            <strong>邮箱接码后台</strong>
+            <small>Mail Code Admin</small>
+          </div>
+        </header>
+
+        <div class="brand-copy">
+          <p class="eyebrow">PRIVATE MAIL WORKSPACE</p>
+          <h1>统一管理验证码邮件</h1>
+          <p>多邮箱集中同步、验证码自动识别、员工分组权限、风险邮件黑名单和操作审计。</p>
+        </div>
+
+        <div class="signal-grid" aria-label="系统能力">
+          <article>
+            <span>IMAP</span>
+            <strong>多邮箱同步</strong>
+            <small>Gmail / Outlook / 163 / QQ</small>
+          </article>
+          <article>
+            <span>CODE</span>
+            <strong>自动识别</strong>
+            <small>4-8 位验证码提取</small>
+          </article>
+          <article>
+            <span>ACL</span>
+            <strong>员工权限</strong>
+            <small>分组、时间段、删除控制</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="login-panel" aria-label="管理员登录">
+        <div class="login-title">
+          <span>ADMIN LOGIN</span>
+          <h2>管理员登录</h2>
+          <p>请输入管理员账号和密码进入后台。</p>
+        </div>
+
+        <form id="loginPreviewForm" class="login-form">
+          <label>
+            管理员账号
+            <input name="username" autocomplete="username" value="admin" required />
+          </label>
+
+          <label>
+            管理员密码
+            <div class="password-field">
+              <input id="passwordInput" name="password" type="password" autocomplete="current-password" value="admin123" required />
+              <button id="togglePasswordBtn" type="button" aria-label="显示或隐藏密码">显示</button>
+            </div>
+          </label>
+
+          <div class="login-row">
+            <label class="check-line">
+              <input type="checkbox" checked />
+              <span>记住本机登录状态</span>
+            </label>
+            <a href="#security">安全说明</a>
+          </div>
+
+          <button class="login-button" type="submit">登录后台</button>
+          <p id="loginMessage" class="login-message" role="status"></p>
+        </form>
+
+        <div id="security" class="security-panel">
+          <strong>默认账号仅用于本地预览</strong>
+          <span>正式使用前请修改管理员账号密码，启用登录失败锁定，并限制在内网或 VPN 访问。</span>
+        </div>
+
+        <footer class="login-footer">
+          <span>127.0.0.1:8088</span>
+          <span>SQLite 本地数据</span>
+          <span>Docker Ready</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="/login-demo.js"></script>
+  </body>
+</html>
