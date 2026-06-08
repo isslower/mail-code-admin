@@ -445,10 +445,257 @@ label {
   justify-self: start;
 }
 
+.guide-page,
+.permission-page,
+.blacklist-page,
+.branding-page {
+  display: grid;
+  gap: 18px;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guide-grid article,
+.permission-panel,
+.staff-list,
+.blacklist-form,
+.blacklist-table {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
+}
+
+.guide-grid article {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+}
+
+.provider-badge {
+  width: max-content;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: var(--primary);
+  background: #eef5ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.guide-grid h2 {
+  margin-bottom: 0;
+  font-size: 19px;
+}
+
+.guide-grid p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+dl div {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+
+dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+dd {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.permission-layout,
+.blacklist-layout,
+.branding-layout {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.staff-list {
+  display: grid;
+  overflow: hidden;
+}
+
+.staff-card {
+  height: auto;
+  display: grid;
+  gap: 6px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--line-soft);
+  padding: 16px;
+  text-align: left;
+}
+
+.staff-card:last-child {
+  border-bottom: 0;
+}
+
+.staff-card.active,
+.staff-card:hover {
+  background: #f5f9ff;
+}
+
+.staff-card span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.permission-panel,
+.blacklist-form,
+.branding-form {
+  display: grid;
+  gap: 15px;
+  padding: 20px;
+}
+
+.brand-preview {
+  min-height: 360px;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px;
+  background: linear-gradient(135deg, #ffffff 0%, #f6f9ff 100%);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
+}
+
+.brand-preview > span {
+  width: max-content;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: var(--primary);
+  background: #eef5ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.preview-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.preview-top img {
+  width: 58px;
+  height: 58px;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.preview-top strong {
+  display: block;
+  font-size: 24px;
+}
+
+.preview-top small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.brand-preview h2 {
+  margin-bottom: 0;
+  font-size: 34px;
+}
+
+.brand-preview p {
+  max-width: 520px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.checkbox-grid,
+.switch-list {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: var(--panel-soft);
+}
+
+.checkbox-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.checkbox-grid label,
+.switch-list label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #344054;
+  font-size: 14px;
+}
+
+.checkbox-grid input,
+.switch-list input {
+  width: 16px;
+  min-height: 16px;
+}
+
+.blacklist-table {
+  overflow: hidden;
+}
+
+.blacklist-table > div {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) 120px 80px;
+  gap: 12px;
+  align-items: center;
+  min-height: 54px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.blacklist-table > div:last-child {
+  border-bottom: 0;
+}
+
+.blacklist-table .table-head {
+  min-height: 44px;
+  color: var(--muted);
+  background: var(--panel-soft);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.blacklist-table span {
+  color: var(--muted);
+}
+
 @media (max-width: 1080px) {
   .demo-shell,
   .workbench,
-  .account-grid {
+  .account-grid,
+  .permission-layout,
+  .blacklist-layout,
+  .branding-layout,
+  .guide-grid {
     grid-template-columns: 1fr;
   }
 
@@ -458,7 +705,7 @@ label {
   }
 
   .nav {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .top {
@@ -479,7 +726,9 @@ label {
 
   .nav,
   .two,
-  .code-box {
+  .code-box,
+  .checkbox-grid,
+  .blacklist-table > div {
     grid-template-columns: 1fr;
   }
 }

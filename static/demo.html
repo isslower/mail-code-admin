@@ -22,6 +22,10 @@
           <button data-page="codes"><span>验证码</span><b>36</b></button>
           <button data-page="send"><span>发送邮件</span></button>
           <button data-page="accounts"><span>邮箱账号</span><b>8</b></button>
+          <button data-page="guides"><span>接入教程</span></button>
+          <button data-page="permissions"><span>员工权限</span><b>5</b></button>
+          <button data-page="blacklist"><span>黑名单</span><b>12</b></button>
+          <button data-page="branding"><span>品牌设置</span></button>
         </nav>
 
         <div class="side-note">
@@ -179,6 +183,181 @@
               <button>检查配置</button>
             </article>
           </div>
+        </section>
+
+        <section id="guidesPage" class="page hidden guide-page">
+          <section class="guide-grid">
+            <article>
+              <span class="provider-badge">Gmail / Google Workspace</span>
+              <h2>Google 邮箱接入</h2>
+              <p>个人 Gmail 推荐开启两步验证并生成应用专用密码；企业 Google Workspace 建议后续接 OAuth。</p>
+              <dl>
+                <div><dt>IMAP</dt><dd>imap.gmail.com:993 SSL</dd></div>
+                <div><dt>SMTP</dt><dd>smtp.gmail.com:587 STARTTLS</dd></div>
+                <div><dt>密码</dt><dd>应用专用密码或 OAuth</dd></div>
+              </dl>
+            </article>
+            <article>
+              <span class="provider-badge">Outlook / Hotmail</span>
+              <h2>Microsoft 邮箱接入</h2>
+              <p>在 Outlook 设置中开启 IMAP；如果普通密码不可用，使用应用密码或现代身份验证。</p>
+              <dl>
+                <div><dt>IMAP</dt><dd>outlook.office365.com:993 SSL</dd></div>
+                <div><dt>SMTP</dt><dd>smtp-mail.outlook.com:587 STARTTLS</dd></div>
+                <div><dt>账号</dt><dd>完整邮箱地址</dd></div>
+              </dl>
+            </article>
+            <article>
+              <span class="provider-badge">163 / 126 / yeah.net</span>
+              <h2>网易邮箱接入</h2>
+              <p>登录网页版邮箱，在 POP3/SMTP/IMAP 设置中开启 IMAP/SMTP 并生成客户端授权码。</p>
+              <dl>
+                <div><dt>IMAP</dt><dd>imap.163.com:993 SSL</dd></div>
+                <div><dt>SMTP</dt><dd>smtp.163.com:465 SSL</dd></div>
+                <div><dt>密码</dt><dd>客户端授权码</dd></div>
+              </dl>
+            </article>
+            <article>
+              <span class="provider-badge">QQ 邮箱 / Foxmail</span>
+              <h2>腾讯邮箱接入</h2>
+              <p>在 QQ 邮箱账号设置中开启 IMAP/SMTP 服务，按页面提示生成授权码。</p>
+              <dl>
+                <div><dt>IMAP</dt><dd>imap.qq.com:993 SSL</dd></div>
+                <div><dt>SMTP</dt><dd>smtp.qq.com:465 SSL</dd></div>
+                <div><dt>密码</dt><dd>QQ 邮箱授权码</dd></div>
+              </dl>
+            </article>
+          </section>
+        </section>
+
+        <section id="permissionsPage" class="page hidden permission-page">
+          <section class="permission-layout">
+            <div class="staff-list">
+              <button class="staff-card active">
+                <strong>张三 · 运营</strong>
+                <span>只能读取验证码邮件，可发送，不可删除</span>
+              </button>
+              <button class="staff-card">
+                <strong>李四 · 客服</strong>
+                <span>仅可查看通知邮箱，限制最近 7 天</span>
+              </button>
+              <button class="staff-card">
+                <strong>王五 · 财务</strong>
+                <span>只读订单通知，不允许发信和删除</span>
+              </button>
+            </div>
+
+            <form class="permission-panel">
+              <div class="panel-title">
+                <h2>员工权限配置</h2>
+                <p>按员工限制可访问邮箱、可读取邮件时间范围，以及发送和删除能力。</p>
+              </div>
+              <label>员工账号 <input value="zhangsan" /></label>
+              <label>角色模板
+                <select>
+                  <option>运营：读验证码 + 可发送</option>
+                  <option>客服：只读指定邮箱</option>
+                  <option>管理员：全部权限</option>
+                </select>
+              </label>
+              <div class="checkbox-grid">
+                <label><input type="checkbox" checked /> 业务 1 号邮箱</label>
+                <label><input type="checkbox" checked /> 注册接码邮箱</label>
+                <label><input type="checkbox" /> 通知邮箱</label>
+                <label><input type="checkbox" /> 财务邮箱</label>
+              </div>
+              <div class="two">
+                <label>可读起始时间 <input type="datetime-local" value="2026-06-01T00:00" /></label>
+                <label>可读结束时间 <input type="datetime-local" value="2026-06-30T23:59" /></label>
+              </div>
+              <div class="switch-list">
+                <label><input type="checkbox" checked /> 允许读取邮件正文</label>
+                <label><input type="checkbox" checked /> 允许复制验证码</label>
+                <label><input type="checkbox" checked /> 允许发送邮件</label>
+                <label><input type="checkbox" /> 允许本地删除</label>
+                <label><input type="checkbox" /> 允许服务器删除</label>
+                <label><input type="checkbox" /> 允许管理邮箱账号</label>
+              </div>
+              <button type="button" class="primary">保存权限</button>
+            </form>
+          </section>
+        </section>
+
+        <section id="blacklistPage" class="page hidden blacklist-page">
+          <section class="blacklist-layout">
+            <form class="blacklist-form">
+              <div class="panel-title">
+                <h2>拉黑规则</h2>
+                <p>命中规则的邮件可自动隐藏、标记风险或禁止员工查看。</p>
+              </div>
+              <label>规则类型
+                <select>
+                  <option>发件人邮箱</option>
+                  <option>发件域名</option>
+                  <option>主题关键词</option>
+                  <option>正文关键词</option>
+                </select>
+              </label>
+              <label>匹配内容 <input value="spam@example.com" /></label>
+              <label>处理方式
+                <select>
+                  <option>自动隐藏</option>
+                  <option>标记风险</option>
+                  <option>禁止发送回复</option>
+                </select>
+              </label>
+              <button type="button" class="primary">添加规则</button>
+            </form>
+            <div class="blacklist-table">
+              <div class="table-head"><span>类型</span><span>内容</span><span>处理</span><span>状态</span></div>
+              <div><span>发件域名</span><strong>*.promo.test</strong><span>自动隐藏</span><mark>启用</mark></div>
+              <div><span>主题关键词</span><strong>中奖 / 返利</strong><span>标记风险</span><mark>启用</mark></div>
+              <div><span>发件人</span><strong>spam@example.com</strong><span>禁止回复</span><mark>启用</mark></div>
+              <div><span>正文关键词</span><strong>代收验证码</strong><span>自动隐藏</span><mark>启用</mark></div>
+            </div>
+          </section>
+        </section>
+
+        <section id="brandingPage" class="page hidden branding-page">
+          <section class="branding-layout">
+            <form class="branding-form">
+              <div class="panel-title">
+                <h2>品牌设置</h2>
+                <p>管理员可以自行修改后台标题、Slogan、Logo 和网站标志。</p>
+              </div>
+              <label>后台标题 <input id="brandTitleInput" value="邮箱接码后台" /></label>
+              <label>Slogan <input id="brandSloganInput" value="统一管理验证码邮件" /></label>
+              <label>英文副标题 <input id="brandSubtitleInput" value="Mail Code Admin" /></label>
+              <label>Logo 地址 <input id="brandLogoInput" value="/logo-whale-envelope.svg" /></label>
+              <label>网站标志地址 <input id="brandIconInput" value="/logo-whale-envelope.svg" /></label>
+              <label>主题色
+                <select id="brandColorInput">
+                  <option value="#1f6feb">科技蓝</option>
+                  <option value="#0f9f6e">安全绿</option>
+                  <option value="#7c3aed">效率紫</option>
+                  <option value="#c2410c">醒目橙</option>
+                </select>
+              </label>
+              <div class="form-actions">
+                <button type="button" id="resetBrandBtn">恢复默认</button>
+                <button type="button" class="primary" id="saveBrandBtn">保存品牌</button>
+              </div>
+            </form>
+
+            <article class="brand-preview">
+              <span>实时预览</span>
+              <div class="preview-top">
+                <img id="previewLogo" src="/logo-whale-envelope.svg" alt="品牌 Logo" />
+                <div>
+                  <strong id="previewTitle">邮箱接码后台</strong>
+                  <small id="previewSubtitle">Mail Code Admin</small>
+                </div>
+              </div>
+              <h2 id="previewSlogan">统一管理验证码邮件</h2>
+              <p>集中接入多个邮箱，快速同步、筛选、查看和复制验证码。</p>
+              <button class="primary">进入后台</button>
+            </article>
+          </section>
         </section>
       </main>
     </div>

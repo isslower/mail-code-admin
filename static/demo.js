@@ -1,19 +1,43 @@
 const pages = {
   inbox: {
     title: "收件箱",
+    desc: "聚合多个邮箱的验证码、通知和业务邮件。",
     show: "inboxPage",
   },
   codes: {
     title: "验证码",
+    desc: "只看已识别验证码的邮件，便于快速复制和处理。",
     show: "inboxPage",
   },
   send: {
     title: "发送邮件",
+    desc: "按员工权限选择发件邮箱，并通过 SMTP 发送邮件。",
     show: "sendPage",
   },
   accounts: {
     title: "邮箱账号",
+    desc: "维护 IMAP/SMTP 配置、授权码、同步状态和批量导入。",
     show: "accountsPage",
+  },
+  guides: {
+    title: "接入教程",
+    desc: "查看 Gmail、Google Workspace、Outlook、163、QQ 等邮箱接入参数。",
+    show: "guidesPage",
+  },
+  permissions: {
+    title: "员工权限",
+    desc: "按员工划分可读邮箱、时间范围、发送权限和删除权限。",
+    show: "permissionsPage",
+  },
+  blacklist: {
+    title: "黑名单",
+    desc: "按发件人、域名、主题或正文关键词拉黑风险邮件。",
+    show: "blacklistPage",
+  },
+  branding: {
+    title: "品牌设置",
+    desc: "自定义后台标题、Slogan、Logo、网站标志和主题色。",
+    show: "brandingPage",
   },
 };
 
@@ -56,6 +80,7 @@ document.querySelectorAll(".nav button").forEach((button) => {
     document.querySelectorAll(".page").forEach((item) => item.classList.add("hidden"));
     document.getElementById(page.show).classList.remove("hidden");
     document.getElementById("pageTitle").textContent = page.title;
+    document.querySelector(".top p:not(.eyebrow)").textContent = page.desc;
   });
 });
 
@@ -69,4 +94,46 @@ document.querySelectorAll(".mail-card").forEach((button) => {
     document.querySelector(".detail-head .mail-account").textContent = mail.meta;
     document.querySelector(".detail-head p").textContent = mail.from;
   });
+});
+
+const brandInputs = {
+  title: document.getElementById("brandTitleInput"),
+  slogan: document.getElementById("brandSloganInput"),
+  subtitle: document.getElementById("brandSubtitleInput"),
+  logo: document.getElementById("brandLogoInput"),
+  icon: document.getElementById("brandIconInput"),
+  color: document.getElementById("brandColorInput"),
+};
+
+function applyBrandPreview() {
+  const title = brandInputs.title.value.trim() || "邮箱接码后台";
+  const slogan = brandInputs.slogan.value.trim() || "统一管理验证码邮件";
+  const subtitle = brandInputs.subtitle.value.trim() || "Mail Code Admin";
+  const logo = brandInputs.logo.value.trim() || "/logo-whale-envelope.svg";
+  const color = brandInputs.color.value || "#1f6feb";
+
+  document.querySelectorAll(".brand strong").forEach((item) => (item.textContent = title));
+  document.querySelector(".brand small").textContent = subtitle;
+  document.querySelectorAll(".logo-mark").forEach((item) => {
+    item.src = logo;
+    item.alt = title;
+  });
+  document.getElementById("previewLogo").src = logo;
+  document.getElementById("previewTitle").textContent = title;
+  document.getElementById("previewSubtitle").textContent = subtitle;
+  document.getElementById("previewSlogan").textContent = slogan;
+  document.documentElement.style.setProperty("--primary", color);
+  document.title = `${title} Demo`;
+}
+
+Object.values(brandInputs).forEach((input) => input?.addEventListener("input", applyBrandPreview));
+document.getElementById("saveBrandBtn")?.addEventListener("click", applyBrandPreview);
+document.getElementById("resetBrandBtn")?.addEventListener("click", () => {
+  brandInputs.title.value = "邮箱接码后台";
+  brandInputs.slogan.value = "统一管理验证码邮件";
+  brandInputs.subtitle.value = "Mail Code Admin";
+  brandInputs.logo.value = "/logo-whale-envelope.svg";
+  brandInputs.icon.value = "/logo-whale-envelope.svg";
+  brandInputs.color.value = "#1f6feb";
+  applyBrandPreview();
 });

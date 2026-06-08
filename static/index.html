@@ -65,6 +65,7 @@
           <button class="nav-item" data-view="send"><span>发送邮件</span></button>
           <button class="nav-item" data-view="accounts"><span>邮箱账号</span></button>
           <button class="nav-item" data-view="guides"><span>接入教程</span></button>
+          <button class="nav-item" data-view="branding"><span>品牌设置</span></button>
         </nav>
 
         <div class="side-card">
@@ -341,6 +342,62 @@
               <p>本地文档已保存到项目目录，可继续补充你的私有邮箱服务商配置。</p>
             </div>
             <pre class="code-block">D:\自建项目\mail-code-admin\docs\provider-guides.md</pre>
+          </article>
+        </section>
+
+        <section id="brandingView" class="view hidden branding-layout">
+          <form id="brandingForm" class="account-form">
+            <div class="panel-title">
+              <h3>品牌设置</h3>
+              <p>自定义后台标题、Slogan、Logo、网站标志和主题色。</p>
+            </div>
+            <label>
+              后台标题
+              <input name="title" value="邮箱接码后台" />
+            </label>
+            <label>
+              Slogan
+              <input name="slogan" value="统一管理验证码邮件" />
+            </label>
+            <label>
+              英文副标题
+              <input name="subtitle" value="Mail Code Admin" />
+            </label>
+            <label>
+              Logo 地址
+              <input name="logo" value="/logo-whale-envelope.svg" />
+            </label>
+            <label>
+              网站标志地址
+              <input name="icon" value="/logo-whale-envelope.svg" />
+            </label>
+            <label>
+              主题色
+              <select name="color">
+                <option value="#1f6feb">科技蓝</option>
+                <option value="#0f9f6e">安全绿</option>
+                <option value="#7c3aed">效率紫</option>
+                <option value="#c2410c">醒目橙</option>
+              </select>
+            </label>
+            <div class="form-actions">
+              <button id="resetBrandingBtn" class="secondary" type="button">恢复默认</button>
+              <button class="primary" type="submit">保存品牌</button>
+            </div>
+          </form>
+
+          <article class="brand-preview-panel">
+            <span>实时预览</span>
+            <div class="brand-preview-head">
+              <img id="brandingPreviewLogo" src="/logo-whale-envelope.svg" alt="品牌 Logo" />
+              <div>
+                <strong id="brandingPreviewTitle">邮箱接码后台</strong>
+                <small id="brandingPreviewSubtitle">Mail Code Admin</small>
+              </div>
+            </div>
+            <h3 id="brandingPreviewSlogan">统一管理验证码邮件</h3>
+            <p>集中接入多个邮箱，快速同步、筛选、查看和复制验证码。</p>
+            <button class="primary" type="button">进入后台</button>
           </article>
         </section>
       </section>
