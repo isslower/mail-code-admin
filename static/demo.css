@@ -462,6 +462,7 @@ label {
 .guide-grid article,
 .permission-panel,
 .staff-list,
+.group-list,
 .blacklist-form,
 .blacklist-table {
   border: 1px solid var(--line);
@@ -522,7 +523,13 @@ dd {
   font-weight: 800;
 }
 
-.permission-layout,
+.permission-layout {
+  display: grid;
+  grid-template-columns: 300px 300px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
 .blacklist-layout,
 .branding-layout {
   display: grid;
@@ -531,12 +538,43 @@ dd {
   align-items: start;
 }
 
-.staff-list {
+.staff-list,
+.group-list {
   display: grid;
+  align-content: start;
   overflow: hidden;
 }
 
-.staff-card {
+.mini-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--panel-soft);
+}
+
+.mini-panel-title h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.mini-panel-title button {
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.inline-add-form {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.staff-card,
+.group-card {
   height: auto;
   display: grid;
   gap: 6px;
@@ -547,16 +585,20 @@ dd {
   text-align: left;
 }
 
-.staff-card:last-child {
+.staff-card:last-child,
+.group-card:last-child {
   border-bottom: 0;
 }
 
 .staff-card.active,
-.staff-card:hover {
+.staff-card:hover,
+.group-card.active,
+.group-card:hover {
   background: #f5f9ff;
 }
 
-.staff-card span {
+.staff-card span,
+.group-card span {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
@@ -658,6 +700,61 @@ dd {
   min-height: 16px;
 }
 
+.permission-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.permission-summary article {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: var(--panel-soft);
+}
+
+.permission-summary span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.permission-summary strong {
+  font-size: 20px;
+}
+
+.permission-matrix {
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+}
+
+.permission-matrix > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) repeat(3, minmax(72px, 100px));
+  gap: 10px;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.permission-matrix > div:last-child {
+  border-bottom: 0;
+}
+
+.permission-matrix .matrix-head {
+  color: var(--muted);
+  background: var(--panel-soft);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.permission-matrix mark {
+  justify-self: start;
+}
+
 .blacklist-table {
   overflow: hidden;
 }
@@ -728,6 +825,8 @@ dd {
   .two,
   .code-box,
   .checkbox-grid,
+  .permission-summary,
+  .permission-matrix > div,
   .blacklist-table > div {
     grid-template-columns: 1fr;
   }

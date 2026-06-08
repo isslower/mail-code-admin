@@ -233,33 +233,84 @@
         <section id="permissionsPage" class="page hidden permission-page">
           <section class="permission-layout">
             <div class="staff-list">
+              <div class="mini-panel-title">
+                <h2>员工</h2>
+                <button type="button" class="primary">新增员工</button>
+              </div>
+              <form class="inline-add-form">
+                <label>账号 <input value="new_staff" /></label>
+                <label>姓名 <input value="新员工" /></label>
+                <label>所属分组
+                  <select>
+                    <option>运营组</option>
+                    <option>客服组</option>
+                    <option>财务组</option>
+                  </select>
+                </label>
+              </form>
               <button class="staff-card active">
                 <strong>张三 · 运营</strong>
-                <span>只能读取验证码邮件，可发送，不可删除</span>
+                <span>运营组 · 只能读取验证码邮件，可发送，不可删除</span>
               </button>
               <button class="staff-card">
                 <strong>李四 · 客服</strong>
-                <span>仅可查看通知邮箱，限制最近 7 天</span>
+                <span>客服组 · 仅可查看通知邮箱，限制最近 7 天</span>
               </button>
               <button class="staff-card">
                 <strong>王五 · 财务</strong>
-                <span>只读订单通知，不允许发信和删除</span>
+                <span>财务组 · 只读订单通知，不允许发信和删除</span>
+              </button>
+            </div>
+
+            <div class="group-list">
+              <div class="mini-panel-title">
+                <h2>分组</h2>
+                <button type="button" class="primary">新增分组</button>
+              </div>
+              <form class="inline-add-form">
+                <label>分组名称 <input value="风控组" /></label>
+                <label>默认角色
+                  <select>
+                    <option>只读</option>
+                    <option>验证码处理</option>
+                    <option>发信操作</option>
+                    <option>管理员</option>
+                  </select>
+                </label>
+              </form>
+              <button class="group-card active">
+                <strong>运营组</strong>
+                <span>3 人 · 读验证码，可发送，不可删除</span>
+              </button>
+              <button class="group-card">
+                <strong>客服组</strong>
+                <span>5 人 · 只读指定邮箱，最近 7 天</span>
+              </button>
+              <button class="group-card">
+                <strong>财务组</strong>
+                <span>2 人 · 只读订单通知，不可发信</span>
               </button>
             </div>
 
             <form class="permission-panel">
               <div class="panel-title">
-                <h2>员工权限配置</h2>
-                <p>按员工限制可访问邮箱、可读取邮件时间范围，以及发送和删除能力。</p>
+                <h2>分组权限配置</h2>
+                <p>先给分组配置默认权限，员工继承分组权限后可单独覆盖。</p>
               </div>
-              <label>员工账号 <input value="zhangsan" /></label>
-              <label>角色模板
+              <label>当前分组 <input value="运营组" /></label>
+              <label>权限模板
                 <select>
-                  <option>运营：读验证码 + 可发送</option>
-                  <option>客服：只读指定邮箱</option>
-                  <option>管理员：全部权限</option>
+                  <option>验证码处理：读验证码 + 可发送</option>
+                  <option>客服只读：指定邮箱 + 最近 7 天</option>
+                  <option>发信操作：指定邮箱 + 可发送</option>
+                  <option>管理员：全部邮箱 + 可删除</option>
                 </select>
               </label>
+              <div class="permission-summary">
+                <article><span>员工数量</span><strong>3</strong></article>
+                <article><span>可读邮箱</span><strong>2</strong></article>
+                <article><span>删除权限</span><strong>关闭</strong></article>
+              </div>
               <div class="checkbox-grid">
                 <label><input type="checkbox" checked /> 业务 1 号邮箱</label>
                 <label><input type="checkbox" checked /> 注册接码邮箱</label>
@@ -278,7 +329,18 @@
                 <label><input type="checkbox" /> 允许服务器删除</label>
                 <label><input type="checkbox" /> 允许管理邮箱账号</label>
               </div>
-              <button type="button" class="primary">保存权限</button>
+              <div class="permission-matrix">
+                <div class="matrix-head"><span>能力</span><span>运营组</span><span>客服组</span><span>财务组</span></div>
+                <div><span>读取邮件</span><mark>允许</mark><mark>允许</mark><mark>允许</mark></div>
+                <div><span>复制验证码</span><mark>允许</mark><mark>关闭</mark><mark>关闭</mark></div>
+                <div><span>发送邮件</span><mark>允许</mark><mark>关闭</mark><mark>关闭</mark></div>
+                <div><span>本地删除</span><mark>关闭</mark><mark>关闭</mark><mark>关闭</mark></div>
+                <div><span>服务器删除</span><mark>关闭</mark><mark>关闭</mark><mark>关闭</mark></div>
+              </div>
+              <div class="form-actions">
+                <button type="button">保存为模板</button>
+                <button type="button" class="primary">保存分组权限</button>
+              </div>
             </form>
           </section>
         </section>
