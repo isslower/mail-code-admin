@@ -1,17 +1,20 @@
 :root {
   color-scheme: light;
-  --bg: #f3f5f8;
+  --bg: #f6f7fb;
   --panel: #ffffff;
   --panel-soft: #f8fafc;
-  --ink: #101828;
-  --muted: #667085;
-  --line: #d8dee8;
-  --primary: #1f6feb;
-  --primary-deep: #1754b4;
-  --accent: #0f9f6e;
-  --warn: #c2410c;
-  --side: #151c2c;
-  --shadow: 0 24px 70px rgba(16, 24, 40, 0.14);
+  --ink: #172033;
+  --muted: #687386;
+  --line: #d9e0ea;
+  --line-soft: #edf1f6;
+  --primary: #2563eb;
+  --primary-deep: #1d4ed8;
+  --primary-soft: #eff6ff;
+  --accent: #138a64;
+  --warn: #b45309;
+  --side: #111827;
+  --side-panel: #192235;
+  --shadow: 0 18px 46px rgba(16, 24, 40, 0.11);
 }
 
 * {
@@ -23,8 +26,8 @@ body {
   min-height: 100vh;
   color: var(--ink);
   background:
-    linear-gradient(180deg, rgba(243, 245, 248, 0.82), rgba(243, 245, 248, 1)),
-    #e9edf4;
+    linear-gradient(180deg, #f8fafc 0%, var(--bg) 280px),
+    var(--bg);
   font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
 }
 
@@ -44,19 +47,19 @@ a {
 }
 
 .login-stage {
-  width: min(1180px, calc(100vw - 32px));
+  width: min(1160px, calc(100vw - 32px));
   min-height: 100vh;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(380px, 460px);
+  grid-template-columns: minmax(0, 1.04fr) minmax(390px, 460px);
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   padding: 28px 0;
 }
 
 .brand-panel,
 .login-panel {
-  min-height: 640px;
+  min-height: 656px;
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -65,12 +68,12 @@ a {
 .brand-panel {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 26px;
+  gap: 24px;
   padding: 32px;
   color: #fff;
   background:
-    linear-gradient(135deg, rgba(21, 28, 44, 0.98), rgba(31, 111, 235, 0.86)),
-    linear-gradient(45deg, rgba(15, 159, 110, 0.28), transparent 42%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 260px),
+    linear-gradient(135deg, #111827 0%, #172033 62%, #1b2a3f 100%);
 }
 
 .brand-head {
@@ -80,12 +83,12 @@ a {
 }
 
 .brand-head img {
-  width: 54px;
-  height: 54px;
-  border-radius: 8px;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
   object-fit: contain;
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
 }
 
 .brand-head strong,
@@ -94,13 +97,13 @@ a {
 }
 
 .brand-head strong {
-  font-size: 22px;
+  font-size: 21px;
 }
 
 .brand-head small,
 .brand-copy p,
 .signal-grid small {
-  color: rgba(255, 255, 255, 0.76);
+  color: #aab6c8;
 }
 
 .brand-copy {
@@ -111,7 +114,7 @@ a {
 .eyebrow,
 .login-title span {
   margin: 0 0 10px;
-  color: #9fd5ff;
+  color: #93c5fd;
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0;
@@ -119,13 +122,13 @@ a {
 
 .brand-copy h1 {
   margin: 0 0 14px;
-  font-size: 46px;
+  font-size: 40px;
   line-height: 1.12;
 }
 
 .brand-copy p {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.75;
 }
 
@@ -136,21 +139,21 @@ a {
 }
 
 .signal-grid article {
-  min-height: 112px;
+  min-height: 108px;
   display: grid;
   align-content: center;
   gap: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   padding: 14px;
-  background: rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .signal-grid span {
   width: max-content;
   border-radius: 8px;
   padding: 4px 8px;
-  color: #0d1b2f;
+  color: #173b6d;
   background: #dbeafe;
   font-size: 12px;
   font-weight: 900;
@@ -163,14 +166,14 @@ a {
 .login-panel {
   display: grid;
   align-content: center;
-  gap: 22px;
+  gap: 20px;
   padding: 32px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .login-title h2 {
   margin: 0 0 8px;
-  font-size: 30px;
+  font-size: 29px;
 }
 
 .login-title p {
@@ -193,13 +196,14 @@ label {
 
 input {
   width: 100%;
-  min-height: 46px;
+  min-height: 47px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 10px 13px;
   outline: none;
   color: var(--ink);
   background: #fff;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
 }
 
 input:focus {
@@ -214,12 +218,18 @@ input:focus {
 }
 
 .password-field button {
-  min-height: 46px;
+  min-height: 47px;
   border: 1px solid var(--line);
   border-radius: 8px;
   color: var(--primary);
   background: var(--panel-soft);
   font-weight: 900;
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+
+.password-field button:hover {
+  border-color: #c6d3e3;
+  background: #fff;
 }
 
 .login-row {
@@ -243,16 +253,23 @@ input:focus {
 }
 
 .login-button {
-  min-height: 48px;
+  min-height: 49px;
   border: 0;
   border-radius: 8px;
   color: #fff;
   background: var(--primary);
   font-weight: 900;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 
 .login-button:hover {
   background: var(--primary-deep);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+}
+
+.login-button:active {
+  transform: translateY(1px);
 }
 
 .login-message {
@@ -265,11 +282,11 @@ input:focus {
 .security-panel {
   display: grid;
   gap: 6px;
-  border: 1px solid #fed7aa;
+  border: 1px solid #f7d7bd;
   border-radius: 8px;
   padding: 13px;
   color: #7c2d12;
-  background: #fff7ed;
+  background: #fff8f1;
   line-height: 1.55;
 }
 
@@ -287,6 +304,7 @@ input:focus {
   border-radius: 8px;
   padding: 6px 9px;
   color: var(--muted);
+  border: 1px solid var(--line-soft);
   background: var(--panel-soft);
   font-size: 12px;
   font-weight: 800;
