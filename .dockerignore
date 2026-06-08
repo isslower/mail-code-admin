@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.git/
+.gitignore
+.env
+data/
+mail_admin.sqlite3
+*.sqlite3
+*.db
+*.log

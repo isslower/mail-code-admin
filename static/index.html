@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>邮箱接码后台</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main id="loginView" class="login-shell">
+      <section class="login-card">
+        <div class="login-copy">
+          <div class="brand large">
+            <img class="logo-mark" src="/logo-whale-envelope.svg" alt="邮箱接码后台" />
+            <div>
+              <strong>邮箱接码后台</strong>
+              <small>Mail Code Admin</small>
+            </div>
+          </div>
+          <div>
+            <p class="eyebrow">CONTROL CENTER</p>
+            <h1>统一管理验证码邮件</h1>
+            <p class="muted">集中接入多个邮箱，快速同步、筛选、查看和复制验证码。</p>
+          </div>
+          <div class="login-stats">
+            <span><b>IMAP</b> 收件同步</span>
+            <span><b>SMTP</b> 邮件发送</span>
+            <span><b>CODE</b> 自动识别</span>
+          </div>
+        </div>
+
+        <form id="loginForm" class="login-form">
+          <div>
+            <p class="eyebrow">ADMIN LOGIN</p>
+            <h2>管理员登录</h2>
+          </div>
+          <label>
+            管理员账号
+            <input name="username" autocomplete="username" value="admin" required />
+          </label>
+          <label>
+            管理员密码
+            <input name="password" type="password" autocomplete="current-password" value="admin123" required />
+          </label>
+          <button class="primary" type="submit">登录后台</button>
+          <p id="loginError" class="error"></p>
+        </form>
+      </section>
+    </main>
+
+    <main id="appView" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="logo-mark" src="/logo-whale-envelope.svg" alt="邮箱接码后台" />
+          <div>
+            <strong>邮箱接码后台</strong>
+            <small id="userName"></small>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="dashboard"><span>概览</span></button>
+          <button class="nav-item" data-view="inbox"><span>收件箱</span></button>
+          <button class="nav-item" data-view="codes"><span>验证码</span></button>
+          <button class="nav-item" data-view="send"><span>发送邮件</span></button>
+          <button class="nav-item" data-view="accounts"><span>邮箱账号</span></button>
+          <button class="nav-item" data-view="guides"><span>接入教程</span></button>
+        </nav>
+
+        <div class="side-card">
+          <span>服务状态</span>
+          <strong>本地运行中</strong>
+          <small>127.0.0.1:8088</small>
+        </div>
+        <button id="logoutBtn" class="ghost">退出登录</button>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">MAIL WORKSPACE</p>
+            <h2 id="viewTitle">概览</h2>
+            <p id="viewSubtitle">查看同步状态、近期验证码和后台操作记录</p>
+          </div>
+          <div class="toolbar">
+            <select id="accountFilter"></select>
+            <input id="searchInput" placeholder="搜索发件人、主题、正文、验证码" />
+            <button id="syncBtn" class="primary">同步邮件</button>
+          </div>
+        </header>
+
+        <section id="dashboardView" class="view dashboard-view">
+          <div class="dashboard-actions">
+            <button id="syncAllBtn" class="primary">同步全部邮箱</button>
+            <button id="refreshDashboardBtn" class="secondary">刷新概览</button>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="metric-card">
+              <span>邮箱账号</span>
+              <strong id="dashAccounts">0</strong>
+              <small>已接入后台管理</small>
+            </article>
+            <article class="metric-card">
+              <span>本地邮件</span>
+              <strong id="dashMessages">0</strong>
+              <small>未删除邮件记录</small>
+            </article>
+            <article class="metric-card">
+              <span>验证码</span>
+              <strong id="dashCodes">0</strong>
+              <small>自动识别到的验证码</small>
+            </article>
+            <article class="metric-card">
+              <span>待处理</span>
+              <strong id="dashUnprocessed">0</strong>
+              <small>还未标记处理</small>
+            </article>
+          </div>
+
+          <div class="dashboard-panels">
+            <article class="info-panel">
+              <div class="panel-title">
+                <h3>近期验证码</h3>
+                <p>从最新邮件中提取到的验证码。</p>
+              </div>
+              <div id="recentCodes" class="compact-list"></div>
+            </article>
+
+            <article class="info-panel">
+              <div class="panel-title">
+                <h3>邮箱健康状态</h3>
+                <p>同步时间和最近错误会显示在这里。</p>
+              </div>
+              <div id="accountHealth" class="compact-list"></div>
+            </article>
+
+            <article class="info-panel wide">
+              <div class="panel-title">
+                <h3>操作日志</h3>
+                <p>记录登录、同步、发送、删除等关键动作。</p>
+              </div>
+              <div id="operationLogs" class="log-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="inboxView" class="view inbox-layout hidden">
+          <div class="metric-row">
+            <article>
+              <span>验证码</span>
+              <strong id="metricCodes">0</strong>
+              <small>当前筛选结果</small>
+            </article>
+            <article>
+              <span>邮箱账号</span>
+              <strong id="metricAccounts">0</strong>
+              <small>支持多账号接入</small>
+            </article>
+            <article>
+              <span>最近同步</span>
+              <strong id="metricSync">未同步</strong>
+              <small id="metricSyncHint">按邮箱手动刷新</small>
+            </article>
+          </div>
+
+          <div class="mail-workbench">
+            <div class="message-list" id="messageList"></div>
+            <article class="message-detail" id="messageDetail">
+              <p class="empty">选择一封邮件查看详情</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="sendView" class="view hidden form-view">
+          <form id="sendForm" class="compose-panel">
+            <div class="panel-title">
+              <h3>发送邮件</h3>
+              <p>从已配置邮箱中选择发件账号。</p>
+            </div>
+            <label>
+              发件邮箱
+              <select name="account_id" required></select>
+            </label>
+            <label>
+              收件人
+              <input name="to" type="email" placeholder="user@example.com" required />
+            </label>
+            <label>
+              主题
+              <input name="subject" required />
+            </label>
+            <label>
+              正文
+              <textarea name="body" rows="12" required></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="primary" type="submit">发送邮件</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="accountsView" class="view hidden accounts-layout">
+          <div class="account-left">
+            <form id="accountForm" class="account-form">
+              <div class="panel-title">
+                <h3>添加邮箱账号</h3>
+                <p>填写 IMAP 和 SMTP 信息后即可同步收发。</p>
+              </div>
+              <label>显示名称 <input name="name" placeholder="业务 1 号邮箱" required /></label>
+              <label>邮箱地址 <input name="email" type="email" placeholder="name@example.com" required /></label>
+              <div class="grid-2">
+                <label>IMAP 服务器 <input name="imap_host" placeholder="imap.example.com" required /></label>
+                <label>端口 <input name="imap_port" type="number" value="993" required /></label>
+              </div>
+              <label class="check"><input name="imap_ssl" type="checkbox" checked /> IMAP 使用 SSL</label>
+              <div class="grid-2">
+                <label>SMTP 服务器 <input name="smtp_host" placeholder="smtp.example.com" required /></label>
+                <label>端口 <input name="smtp_port" type="number" value="465" required /></label>
+              </div>
+              <label class="check"><input name="smtp_ssl" type="checkbox" checked /> SMTP 使用 SSL</label>
+              <label>登录账号 <input name="username" placeholder="通常为邮箱地址" required /></label>
+              <label>授权码/密码 <input name="password" type="password" required /></label>
+              <div class="form-actions">
+                <button id="testAccountFormBtn" class="secondary" type="button">测试配置</button>
+                <button class="primary" type="submit">保存账号</button>
+              </div>
+            </form>
+
+            <article class="info-panel import-panel">
+              <div class="panel-title">
+                <h3>批量导入</h3>
+                <p>下载 CSV 模板，按字段填写后上传导入。单次最多 500 个邮箱账号。</p>
+              </div>
+              <div class="form-actions">
+                <a class="button-link secondary" href="/templates/account-import-template.csv" download>下载导入模板</a>
+                <button id="openGuidesBtn" class="secondary" type="button">查看接入教程</button>
+              </div>
+              <label>
+                上传 CSV
+                <input id="bulkImportFile" type="file" accept=".csv,text/csv" />
+              </label>
+              <div id="bulkImportSummary" class="import-summary empty">等待选择 CSV 文件</div>
+              <div id="bulkImportPreview" class="import-preview"></div>
+              <div class="form-actions">
+                <button id="bulkImportBtn" class="primary" type="button" disabled>确认导入</button>
+                <button id="clearImportBtn" class="secondary" type="button">清空</button>
+              </div>
+            </article>
+          </div>
+          <div>
+            <div class="panel-title list-title">
+              <h3>已管理邮箱</h3>
+              <p>同步、测试或删除邮箱配置。</p>
+            </div>
+            <div id="accountList" class="account-list"></div>
+          </div>
+        </section>
+
+        <section id="guidesView" class="view hidden guides-view">
+          <article class="info-panel wide">
+            <div class="panel-title">
+              <h3>批量导入字段</h3>
+              <p>CSV 第一行必须保留字段名，密码字段请填写授权码或应用专用密码。</p>
+            </div>
+            <pre class="code-block">name,email,imap_host,imap_port,imap_ssl,smtp_host,smtp_port,smtp_ssl,username,password</pre>
+          </article>
+
+          <div class="guide-grid">
+            <article class="guide-card">
+              <h3>Gmail</h3>
+              <dl>
+                <dt>IMAP</dt><dd>imap.gmail.com:993 SSL</dd>
+                <dt>SMTP</dt><dd>smtp.gmail.com:587 STARTTLS</dd>
+                <dt>密码</dt><dd>应用专用密码，或改造为 OAuth / Sign in with Google</dd>
+              </dl>
+              <div class="official-links">
+                <a href="https://developers.google.com/workspace/gmail/imap/imap-smtp" target="_blank" rel="noreferrer">官方 IMAP/SMTP 文档</a>
+                <a href="https://support.google.com/accounts/answer/185833" target="_blank" rel="noreferrer">官方应用专用密码说明</a>
+              </div>
+            </article>
+
+            <article class="guide-card">
+              <h3>Outlook / Hotmail</h3>
+              <dl>
+                <dt>IMAP</dt><dd>outlook.office365.com:993 SSL</dd>
+                <dt>SMTP</dt><dd>smtp-mail.outlook.com:587 STARTTLS</dd>
+                <dt>密码</dt><dd>应用密码、账号可用密码，或 OAuth2 / Modern Auth</dd>
+              </dl>
+              <div class="official-links">
+                <a href="https://support.microsoft.com/en-us/office/pop-imap-and-smtp-settings-for-outlook-com-d088b986-291d-42b8-9564-9c414e2aa040" target="_blank" rel="noreferrer">Microsoft 官方设置文档</a>
+                <a href="https://outlook.live.com/mail/" target="_blank" rel="noreferrer">Outlook 官方入口</a>
+              </div>
+            </article>
+
+            <article class="guide-card">
+              <h3>163 / 126 / yeah.net</h3>
+              <dl>
+                <dt>163 IMAP</dt><dd>imap.163.com:993 SSL</dd>
+                <dt>163 SMTP</dt><dd>smtp.163.com:465 SSL</dd>
+                <dt>密码</dt><dd>客户端授权码</dd>
+              </dl>
+              <p>126 通常使用 imap.126.com / smtp.126.com，yeah.net 通常使用 imap.yeah.net / smtp.yeah.net。</p>
+              <div class="official-links">
+                <a href="https://email.163.com/" target="_blank" rel="noreferrer">网易邮箱官方入口</a>
+                <a href="https://help.mail.yeah.net/faqDetail.do?code=d7a5dc8471cd0c0e8b4b8f4f8e49998b374173cfe9171305fa1ce630d7f67ac286624f309a1a7089" target="_blank" rel="noreferrer">网易官方授权码帮助</a>
+              </div>
+            </article>
+
+            <article class="guide-card">
+              <h3>QQ 邮箱 / Foxmail</h3>
+              <dl>
+                <dt>IMAP</dt><dd>imap.qq.com:993 SSL</dd>
+                <dt>SMTP</dt><dd>smtp.qq.com:465 SSL</dd>
+                <dt>密码</dt><dd>QQ 邮箱授权码</dd>
+              </dl>
+              <p>在 QQ 邮箱网页端开启 IMAP/SMTP 后生成授权码，导入时填写到 password 字段。</p>
+              <div class="official-links">
+                <a href="https://mail.qq.com/" target="_blank" rel="noreferrer">QQ 邮箱官方入口</a>
+                <a href="https://service.mail.qq.com/" target="_blank" rel="noreferrer">QQ 邮箱官方帮助中心</a>
+              </div>
+            </article>
+
+            <article class="guide-card">
+              <h3>飞书邮箱</h3>
+              <dl>
+                <dt>IMAP</dt><dd>imap.feishu.cn:993 SSL</dd>
+                <dt>SMTP</dt><dd>smtp.feishu.cn:465 SSL</dd>
+                <dt>密码</dt><dd>飞书邮箱专用密码</dd>
+              </dl>
+              <div class="official-links">
+                <a href="https://www.feishu.cn/hc/zh-CN/articles/902478147400" target="_blank" rel="noreferrer">飞书官方第三方登录教程</a>
+                <a href="https://www.feishu.cn/hc/zh-CN/articles/360049067809-%E7%AC%AC%E4%B8%89%E6%96%B9%E9%82%AE%E7%AE%B1-imap-smtp-%E5%9C%B0%E5%9D%80%E5%92%8C%E7%AB%AF%E5%8F%A3" target="_blank" rel="noreferrer">飞书官方端口参考</a>
+              </div>
+            </article>
+          </div>
+
+          <article class="info-panel wide">
+            <div class="panel-title">
+              <h3>详细文档</h3>
+              <p>本地文档已保存到项目目录，可继续补充你的私有邮箱服务商配置。</p>
+            </div>
+            <pre class="code-block">D:\自建项目\mail-code-admin\docs\provider-guides.md</pre>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

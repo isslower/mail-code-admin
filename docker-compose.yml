@@ -1,0 +1,20 @@
+services:
+  mail-code-admin:
+    build: .
+    container_name: mail-code-admin
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8088
+      MAIL_ADMIN_USER: ${MAIL_ADMIN_USER:-admin}
+      MAIL_ADMIN_PASSWORD: ${MAIL_ADMIN_PASSWORD:-admin123}
+      MAIL_CODE_API_TOKEN: ${MAIL_CODE_API_TOKEN:-}
+      MAIL_DB_PATH: /app/data/mail_admin.sqlite3
+      MAIL_AUTO_SYNC_SECONDS: ${MAIL_AUTO_SYNC_SECONDS:-0}
+      MAIL_LOGIN_MAX_FAILURES: ${MAIL_LOGIN_MAX_FAILURES:-5}
+      MAIL_LOGIN_LOCK_SECONDS: ${MAIL_LOGIN_LOCK_SECONDS:-300}
+      MAIL_TIMEOUT_SECONDS: ${MAIL_TIMEOUT_SECONDS:-12}
+    volumes:
+      - ./data:/app/data

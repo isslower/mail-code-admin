@@ -1,0 +1,16 @@
+.env
+data/
+mail_admin.sqlite3
+*.sqlite3
+*.db
+*.log
+__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

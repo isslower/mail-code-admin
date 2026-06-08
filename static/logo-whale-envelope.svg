@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Whale envelope logo">
+  <defs>
+    <linearGradient id="tile" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="1" stop-color="#EAF4FF"/>
+    </linearGradient>
+    <linearGradient id="whale" x1="18" y1="16" x2="54" y2="38" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#39A8FF"/>
+      <stop offset="1" stop-color="#1F6FEB"/>
+    </linearGradient>
+    <linearGradient id="envelope" x1="12" y1="31" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DCEBFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#tile)"/>
+  <rect x="4.75" y="4.75" width="54.5" height="54.5" rx="13.25" fill="none" stroke="#D4E3F7" stroke-width="1.5"/>
+
+  <path d="M24 16.8c-2.8-2.6-5.3-4-8.5-4.2 1.1 2.7 2.9 4.8 5.8 6.1-2.8.8-4.6 2.2-6 4.6 3.2.3 6-.2 8.6-2.2" fill="#1F6FEB"/>
+  <path d="M22.6 24.1c0-6 5.9-10.9 13.2-10.9 7.8 0 13.8 5.1 13.8 11.4 0 6.5-6.2 11.6-14.4 11.6H24.6c-1.4 0-2.5-1.1-2.5-2.5v-2.2c0-1.3.2-4.8.5-7.4Z" fill="url(#whale)"/>
+  <path d="M49 24.4c2.9-.8 5.4-.5 7.4 1.1-1.5 1.4-3.4 2.2-5.8 2.1 2.1 1.4 3.1 3.1 3.2 5.4-2.8-.9-4.9-2.4-6.5-4.8" fill="#1F6FEB"/>
+  <circle cx="39.9" cy="21.7" r="1.8" fill="#0B214A"/>
+  <path d="M27.7 29.7c4.5 3.2 11.7 3.3 16.1.2" fill="none" stroke="#BFE8FF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M33 12.1c-.2-2 1-3.7 3.5-5M38.8 13c.9-1.7 2.5-2.6 4.9-2.8M29 13.8c-1.3-1.4-3-1.9-5.2-1.4" fill="none" stroke="#62C7FF" stroke-width="2" stroke-linecap="round"/>
+
+  <path d="M12 33.8c0-1.7 1.3-3 3-3h34c1.7 0 3 1.3 3 3v18.3c0 1.7-1.3 3-3 3H15c-1.7 0-3-1.3-3-3V33.8Z" fill="url(#envelope)" stroke="#9CB9DD" stroke-width="2"/>
+  <path d="m13.8 33 17.1 13.3c.7.6 1.7.6 2.4 0L50.2 33" fill="none" stroke="#7FA4D3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m13.8 53 13.4-11M50.2 53 36.8 42" fill="none" stroke="#B2C8E5" stroke-width="2" stroke-linecap="round"/>
+</svg>

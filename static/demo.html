@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>邮箱接码后台 Demo</title>
+    <link rel="stylesheet" href="/demo.css" />
+  </head>
+  <body>
+    <div class="demo-shell">
+      <aside class="side">
+        <div class="brand">
+          <img class="logo-mark" src="/logo-whale-envelope.svg" alt="邮箱接码后台" />
+          <div>
+            <strong>邮箱接码后台</strong>
+            <small>Demo Preview</small>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="active" data-page="inbox"><span>收件箱</span><b>128</b></button>
+          <button data-page="codes"><span>验证码</span><b>36</b></button>
+          <button data-page="send"><span>发送邮件</span></button>
+          <button data-page="accounts"><span>邮箱账号</span><b>8</b></button>
+        </nav>
+
+        <div class="side-note">
+          <span>今日同步</span>
+          <strong>326 封</strong>
+          <small>平均识别耗时 0.2 秒</small>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="top">
+          <div>
+            <p class="eyebrow">MAIL WORKSPACE</p>
+            <h1 id="pageTitle">收件箱</h1>
+            <p>聚合多个邮箱的验证码、通知和业务邮件。</p>
+          </div>
+          <div class="actions">
+            <select>
+              <option>全部邮箱</option>
+              <option>业务 1 号邮箱</option>
+              <option>注册接码邮箱</option>
+            </select>
+            <input placeholder="搜索发件人、主题、验证码" />
+            <button class="primary">同步邮件</button>
+          </div>
+        </header>
+
+        <section id="inboxPage" class="page inbox-page">
+          <section class="stats">
+            <article>
+              <span>验证码邮件</span>
+              <strong>36</strong>
+              <small>今日新增 12</small>
+            </article>
+            <article>
+              <span>管理邮箱</span>
+              <strong>8</strong>
+              <small>7 个在线</small>
+            </article>
+            <article>
+              <span>未处理邮件</span>
+              <strong>21</strong>
+              <small>最早 16:20</small>
+            </article>
+          </section>
+
+          <section class="workbench">
+            <div class="mail-list" aria-label="邮件列表">
+              <button class="mail-card active" data-mail="0">
+                <span class="mail-account">业务 1 号邮箱</span>
+                <strong>你的登录验证码是 839421</strong>
+                <span>security@example.com</span>
+                <mark>839421</mark>
+                <small>17:18 · 请在 10 分钟内完成验证</small>
+              </button>
+              <button class="mail-card" data-mail="1">
+                <span class="mail-account">注册接码邮箱</span>
+                <strong>Verify your account</strong>
+                <span>no-reply@service.com</span>
+                <mark>204866</mark>
+                <small>17:09 · Use this code to continue</small>
+              </button>
+              <button class="mail-card" data-mail="2">
+                <span class="mail-account">通知邮箱</span>
+                <strong>订单通知：付款成功</strong>
+                <span>notice@shop.test</span>
+                <small>16:55 · 订单已完成付款</small>
+              </button>
+              <button class="mail-card" data-mail="3">
+                <span class="mail-account">业务 2 号邮箱</span>
+                <strong>安全验证代码 672910</strong>
+                <span>account@example.net</span>
+                <mark>672910</mark>
+                <small>16:41 · 本次操作需要二次验证</small>
+              </button>
+            </div>
+
+            <article class="detail">
+              <div class="detail-head">
+                <span class="mail-account">业务 1 号邮箱 · user01@example.com</span>
+                <h2 id="mailSubject">你的登录验证码是 839421</h2>
+                <p>security@example.com · 2026-05-29 17:18:22</p>
+              </div>
+              <div class="code-box">
+                <span>识别到的验证码</span>
+                <strong id="mailCode">839421</strong>
+                <button class="primary">复制</button>
+              </div>
+              <div class="detail-actions">
+                <button>标记已处理</button>
+                <button class="danger">本地删除</button>
+                <button class="danger">服务器删除</button>
+              </div>
+              <p id="mailBody" class="body-text">
+                你正在登录业务后台，本次验证码为 839421。验证码 10 分钟内有效，如非本人操作请忽略。
+              </p>
+            </article>
+          </section>
+        </section>
+
+        <section id="sendPage" class="page hidden panel-page">
+          <form class="compose">
+            <div class="panel-title">
+              <h2>发送邮件</h2>
+              <p>选择发件邮箱，填写收件人和正文。</p>
+            </div>
+            <label>发件邮箱 <select><option>业务 1 号邮箱 · user01@example.com</option></select></label>
+            <label>收件人 <input value="client@example.com" /></label>
+            <label>主题 <input value="测试邮件发送" /></label>
+            <label>正文 <textarea rows="10">你好，这是一封从网页邮箱后台发送的测试邮件。</textarea></label>
+            <div class="form-actions">
+              <button type="button">保存草稿</button>
+              <button type="button" class="primary">发送邮件</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="accountsPage" class="page hidden account-grid">
+          <form class="account-form">
+            <div class="panel-title">
+              <h2>添加邮箱账号</h2>
+              <p>配置 IMAP 收件和 SMTP 发件信息。</p>
+            </div>
+            <label>显示名称 <input value="业务 3 号邮箱" /></label>
+            <label>邮箱地址 <input value="user03@example.com" /></label>
+            <div class="two">
+              <label>IMAP 服务器 <input value="imap.example.com" /></label>
+              <label>端口 <input value="993" /></label>
+            </div>
+            <div class="two">
+              <label>SMTP 服务器 <input value="smtp.example.com" /></label>
+              <label>端口 <input value="465" /></label>
+            </div>
+            <label>授权码 <input type="password" value="demo-password" /></label>
+            <button type="button" class="primary">保存账号</button>
+          </form>
+
+          <div class="accounts">
+            <article>
+              <strong>业务 1 号邮箱</strong>
+              <span>user01@example.com</span>
+              <small>最近同步：17:18 · 在线</small>
+              <button>同步</button>
+            </article>
+            <article>
+              <strong>注册接码邮箱</strong>
+              <span>register@example.com</span>
+              <small>最近同步：17:09 · 在线</small>
+              <button>同步</button>
+            </article>
+            <article>
+              <strong>通知邮箱</strong>
+              <span>notice@example.com</span>
+              <small>最近同步：16:55 · 离线</small>
+              <button>检查配置</button>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/demo.js"></script>
+  </body>
+</html>

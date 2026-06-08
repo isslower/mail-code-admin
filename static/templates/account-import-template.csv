@@ -1,0 +1,6 @@
+name,email,imap_host,imap_port,imap_ssl,smtp_host,smtp_port,smtp_ssl,username,password
+Gmail Demo,yourname@gmail.com,imap.gmail.com,993,true,smtp.gmail.com,587,false,yourname@gmail.com,APP_PASSWORD_OR_OAUTH_SECRET
+Outlook Demo,yourname@outlook.com,outlook.office365.com,993,true,smtp-mail.outlook.com,587,false,yourname@outlook.com,APP_PASSWORD_OR_OAUTH_SECRET
+163 Demo,yourname@163.com,imap.163.com,993,true,smtp.163.com,465,true,yourname@163.com,CLIENT_AUTH_CODE
+QQ Demo,yourname@qq.com,imap.qq.com,993,true,smtp.qq.com,465,true,yourname@qq.com,QQ_MAIL_AUTH_CODE
+Feishu Demo,yourname@example.com,imap.feishu.cn,993,true,smtp.feishu.cn,465,true,yourname@example.com,FEISHU_MAIL_APP_PASSWORD
