@@ -9,62 +9,7 @@ const state = {
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-const DEFAULT_BRAND = {
-  title: "邮箱接码后台",
-  slogan: "统一管理验证码邮件",
-  subtitle: "Mail Code Admin",
-  logo: "/logo-whale-envelope.svg",
-  icon: "/logo-whale-envelope.svg",
-  color: "#1f6feb",
-};
-
-function loadBrand() {
-  try {
-    return { ...DEFAULT_BRAND, ...JSON.parse(localStorage.getItem("mail_admin_brand") || "{}") };
-  } catch {
-    return { ...DEFAULT_BRAND };
-  }
-}
-
-function saveBrand(brand) {
-  localStorage.setItem("mail_admin_brand", JSON.stringify(brand));
-}
-
-function setFavicon(url) {
-  let link = document.querySelector("link[rel='icon']");
-  if (!link) {
-    link = document.createElement("link");
-    link.rel = "icon";
-    document.head.appendChild(link);
-  }
-  link.href = url;
-}
-
-function applyBrand(brand = loadBrand()) {
-  document.documentElement.style.setProperty("--primary", brand.color || DEFAULT_BRAND.color);
-  document.title = brand.title || DEFAULT_BRAND.title;
-  setFavicon(brand.icon || brand.logo || DEFAULT_BRAND.icon);
-  $$(".brand strong").forEach((item) => (item.textContent = brand.title || DEFAULT_BRAND.title));
-  $$(".brand small").forEach((item) => {
-    if (item.id !== "userName") item.textContent = brand.subtitle || DEFAULT_BRAND.subtitle;
-  });
-  $$(".logo-mark").forEach((img) => {
-    img.src = brand.logo || DEFAULT_BRAND.logo;
-    img.alt = brand.title || DEFAULT_BRAND.title;
-  });
-  const form = $("#brandingForm");
-  if (form) {
-    Object.entries(brand).forEach(([key, value]) => {
-      if (form.elements[key]) form.elements[key].value = value;
-    });
-  }
-  if ($("#brandingPreviewLogo")) {
-    $("#brandingPreviewLogo").src = brand.logo || DEFAULT_BRAND.logo;
-    $("#brandingPreviewTitle").textContent = brand.title || DEFAULT_BRAND.title;
-    $("#brandingPreviewSubtitle").textContent = brand.subtitle || DEFAULT_BRAND.subtitle;
-    $("#brandingPreviewSlogan").textContent = brand.slogan || DEFAULT_BRAND.slogan;
-  }
-}
+const icon = (name) => `<svg class="fa-icon" aria-hidden="true"><use href="/icons.svg#fa-${name}"></use></svg>`;
 
 async function api(path, options = {}) {
   const response = await fetch(path, {
@@ -118,6 +63,7 @@ function parseCsv(text) {
   let row = [];
   let cell = "";
   let inQuotes = false;
+
   for (let i = 0; i < text.length; i += 1) {
     const char = text[i];
     const next = text[i + 1];
@@ -139,6 +85,7 @@ function parseCsv(text) {
       cell += char;
     }
   }
+
   row.push(cell);
   if (row.some((value) => value.trim() !== "")) rows.push(row);
   return rows;
@@ -180,6 +127,7 @@ function renderBulkPreview(accounts, summary = "") {
     $("#bulkImportPreview").innerHTML = "";
     return;
   }
+
   $("#bulkImportPreview").innerHTML = `
     <table>
       <thead>
@@ -213,7 +161,6 @@ function renderBulkPreview(accounts, summary = "") {
 }
 
 async function boot() {
-  applyBrand();
   try {
     const me = await api("/api/me");
     $("#userName").textContent = me.user;
@@ -328,11 +275,7 @@ function updateMetrics() {
   $("#metricCodes").textContent = codeCount || dashboardStats.codes || 0;
   $("#metricAccounts").textContent = state.accounts.length || dashboardStats.accounts || 0;
   $("#metricSync").textContent = formatTime(latestSync);
-  $("#metricSyncHint").textContent = dashboardStats.auto_sync_seconds
-    ? `自动同步：${dashboardStats.auto_sync_seconds} 秒`
-    : latestSync
-      ? "最近一次邮箱同步"
-      : "按邮箱手动刷新";
+  $("#metricSyncHint").textContent = latestSync ? "最近一次邮箱同步" : "按邮箱手动刷新";
 }
 
 function renderAccountOptions() {
@@ -358,6 +301,7 @@ function renderMessages() {
     $("#messageDetail").innerHTML = `<p class="empty">选择一封邮件查看详情</p>`;
     return;
   }
+
   list.innerHTML = state.messages
     .map(
       (m) => `
@@ -398,10 +342,10 @@ async function openMessage(id) {
       </div>
     </div>
     <div class="detail-actions">
-      ${m.code ? `<button class="primary" id="copyCodeBtn">复制验证码</button>` : ""}
-      <button class="secondary" id="processedBtn">${m.is_processed ? "标记未处理" : "标记已处理"}</button>
-      <button class="danger" id="deleteLocalBtn">本地删除</button>
-      <button class="danger" id="deleteRemoteBtn">服务器删除</button>
+      ${m.code ? `<button class="primary" id="copyCodeBtn">${icon("copy")}复制验证码</button>` : ""}
+      <button class="secondary" id="processedBtn">${icon("check")}${m.is_processed ? "标记未处理" : "标记已处理"}</button>
+      <button class="danger" id="deleteLocalBtn">${icon("trash")}本地删除</button>
+      <button class="danger" id="deleteRemoteBtn">${icon("trash")}服务器删除</button>
     </div>
     <div class="message-body">${escapeHtml(body || "无正文内容")}</div>
   `;
@@ -426,6 +370,7 @@ function renderAccounts() {
     list.innerHTML = `<p class="empty padded">还没有添加邮箱账号</p>`;
     return;
   }
+
   list.innerHTML = state.accounts
     .map(
       (a) => `
@@ -439,9 +384,9 @@ function renderAccounts() {
         <span class="message-meta">上次同步：${a.last_sync_at ? formatDate(a.last_sync_at) : "未同步"}</span>
         ${a.last_error ? `<span class="error-text">${escapeHtml(a.last_error)}</span>` : ""}
         <div class="account-actions">
-          <button class="primary" data-sync="${a.id}">同步</button>
-          <button class="secondary" data-test-account="${a.id}">测试连接</button>
-          <button class="danger" data-delete-account="${a.id}">删除</button>
+          <button class="primary" data-sync="${a.id}">${icon("sync")}同步</button>
+          <button class="secondary" data-test-account="${a.id}">${icon("plug")}测试连接</button>
+          <button class="danger" data-delete-account="${a.id}">${icon("trash")}删除</button>
         </div>
       </article>
     `
@@ -476,18 +421,17 @@ async function testExistingAccount(accountId) {
   const result = await api(`/api/accounts/${accountId}/test`, { method: "POST", body: "{}" });
   const imap = result.imap.ok ? "IMAP 正常" : `IMAP 异常：${result.imap.message}`;
   const smtp = result.smtp.ok ? "SMTP 正常" : `SMTP 异常：${result.smtp.message}`;
-  toast(`${imap}；${smtp}`);
+  toast(`${imap}，${smtp}`);
   await loadDashboard();
 }
 
 async function testAccountForm() {
-  const form = $("#accountForm");
-  const payload = formPayload(form);
+  const payload = formPayload($("#accountForm"));
   toast("正在测试配置...");
   const result = await api("/api/accounts/test", { method: "POST", body: JSON.stringify(payload) });
   const imap = result.imap.ok ? "IMAP 正常" : `IMAP 异常：${result.imap.message}`;
   const smtp = result.smtp.ok ? "SMTP 正常" : `SMTP 异常：${result.smtp.message}`;
-  toast(`${imap}；${smtp}`);
+  toast(`${imap}，${smtp}`);
 }
 
 async function importBulkAccounts() {
@@ -566,7 +510,7 @@ function setView(view) {
   $("#sendView").classList.toggle("hidden", view !== "send");
   $("#accountsView").classList.toggle("hidden", view !== "accounts");
   $("#guidesView").classList.toggle("hidden", view !== "guides");
-  $("#brandingView").classList.toggle("hidden", view !== "branding");
+
   const titleMap = {
     dashboard: "概览",
     inbox: "收件箱",
@@ -574,23 +518,21 @@ function setView(view) {
     send: "发送邮件",
     accounts: "邮箱账号",
     guides: "接入教程",
-    branding: "品牌设置",
   };
   const subMap = {
-    dashboard: "查看同步状态、近期验证码和后台操作记录",
-    inbox: "集中查看所有邮箱收到的验证码邮件",
-    codes: "只显示识别到验证码的邮件",
-    send: "使用已配置邮箱发送邮件",
-    accounts: "添加、同步、测试和删除邮箱账号",
-    guides: "查看 Gmail、Outlook、163、QQ、飞书等邮箱接入方式",
-    branding: "自定义后台标题、Slogan、Logo、网站标志和主题色",
+    dashboard: "查看同步状态、近期验证码和后台操作记录。",
+    inbox: "集中查看所有邮箱收到的验证码邮件。",
+    codes: "只显示识别到验证码的邮件。",
+    send: "使用已配置邮箱发送邮件。",
+    accounts: "添加、同步、测试和删除邮箱账号。",
+    guides: "查看 Gmail、Outlook、163、QQ、飞书等邮箱接入方式。",
   };
+
   $("#viewTitle").textContent = titleMap[view];
   $("#viewSubtitle").textContent = subMap[view];
   $(".toolbar").classList.toggle("hidden", !["inbox", "codes"].includes(view));
   if (view === "dashboard") loadDashboard().catch((err) => toast(err.message));
   if (["inbox", "codes"].includes(view)) loadMessages().catch((err) => toast(err.message));
-  if (view === "branding") applyBrand();
 }
 
 $("#loginForm").addEventListener("submit", async (event) => {
@@ -632,25 +574,13 @@ $("#syncBtn").addEventListener("click", async () => {
 });
 
 $("#syncAllBtn").addEventListener("click", () => syncAll().catch((err) => toast(err.message)));
-$("#refreshDashboardBtn").addEventListener("click", () => loadDashboard().then(() => toast("概览已刷新")).catch((err) => toast(err.message)));
+$("#refreshDashboardBtn").addEventListener("click", () =>
+  loadDashboard()
+    .then(() => toast("概览已刷新"))
+    .catch((err) => toast(err.message))
+);
 $("#testAccountFormBtn").addEventListener("click", () => testAccountForm().catch((err) => toast(err.message)));
 $("#openGuidesBtn").addEventListener("click", () => setView("guides"));
-$("#brandingForm").addEventListener("input", () => {
-  const brand = { ...DEFAULT_BRAND, ...Object.fromEntries(new FormData($("#brandingForm")).entries()) };
-  applyBrand(brand);
-});
-$("#brandingForm").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const brand = { ...DEFAULT_BRAND, ...Object.fromEntries(new FormData(event.currentTarget).entries()) };
-  saveBrand(brand);
-  applyBrand(brand);
-  toast("品牌设置已保存");
-});
-$("#resetBrandingBtn").addEventListener("click", () => {
-  saveBrand(DEFAULT_BRAND);
-  applyBrand(DEFAULT_BRAND);
-  toast("品牌设置已恢复默认");
-});
 $("#bulkImportFile").addEventListener("change", async (event) => {
   const file = event.currentTarget.files[0];
   if (!file) return;
