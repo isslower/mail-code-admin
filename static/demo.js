@@ -70,3 +70,8 @@ document.querySelectorAll(".mail-card").forEach((button) => {
     document.querySelector(".detail-head p").textContent = mail.from;
   });
 });
+
+const initialPage = new URLSearchParams(window.location.search).get("page");
+if (initialPage) {
+  document.querySelector(`.nav button[data-page="${initialPage}"]`)?.click();
+}

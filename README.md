@@ -34,6 +34,18 @@ http://127.0.0.1:8088/demo.html
 static/ui-prototype-dashboard.png
 ```
 
+### 收件箱与验证码识别
+
+![收件箱与验证码识别](docs/screenshots/demo-inbox.png)
+
+### 发送邮件
+
+![发送邮件](docs/screenshots/demo-send.png)
+
+### 邮箱账号管理
+
+![邮箱账号管理](docs/screenshots/demo-accounts.png)
+
 ## 快速启动
 
 ```powershell
